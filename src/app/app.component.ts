@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { POSTS } from './mock-posts';
+import { Observable } from 'rxjs';
+import { Post } from './post/post.model';
+import { PostDataService } from './post/post.data.service';
 
 @Component({
   selector: 'app-root',
@@ -9,8 +11,14 @@ import { POSTS } from './mock-posts';
 export class AppComponent {
   //Var
   title = 'ProjectWebIV';
-  posts = POSTS
+  private _fetchPost$: Observable<Post[]> = this._postDataService.posts$;
+  public loadingError$ = this._postDataService.loadingError$;
 
   //construtor
-  constructor(){}
+  constructor(private _postDataService: PostDataService){}
+
+  //getters
+  get posts$(): Observable<Post[]>{
+    return this._fetchPost$;
+  }
 }

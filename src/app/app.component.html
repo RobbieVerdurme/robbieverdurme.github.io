@@ -1,13 +1,25 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo"
-    src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="0.5%" fxLayoutAlign="start">
 
-  <div class="recipe" *ngFor="let post of posts" fxFlex="0 0 calc(25%-0.5%)" fxFlex.xs="100%">
-    <app-post [post]="post"></app-post>
+<!--POSTS-->
+<div fxLayout="column" fxLayoutGap="2%">
+  <div *ngIf="(posts$ | async) as posts; else loadingOrError">
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="left">
+      <div *ngFor="let localPost of (posts$ | async)">
+        <app-post [post]="localPost"></app-post>
+      </div>
+    </div>
   </div>
+</div>
+
+<!--TEMPLATE-->
+<ng-template #loadingOrError>
+    <mat-card>
+      <mat-error *ngIf="(loadingError$ | async) as errorMessage; else loading">
+       Error loading the post list: {{ errorMessage }}. <br/>
+        Please try again later.
+      </mat-error>
+      <ng-template #loading>
+        Loading latist posts...
+      </ng-template>
+    </mat-card>
+  </ng-template> 
