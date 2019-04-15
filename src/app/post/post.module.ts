@@ -10,6 +10,13 @@ import { MaterialModule } from '../material/material.module';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PostDetailComponent } from './post-detail/post-detail.component';
+import { RouterModule } from '@angular/router';
+import { PostResolver } from './post-resolver';
+
+const routes = [
+  { path: 'post/list', component: PostListComponent},
+  { path: 'post/:id', component: PostDetailComponent, resolve: {post : PostResolver}},
+]
 
 @NgModule({
   declarations: [
@@ -23,6 +30,7 @@ import { PostDetailComponent } from './post-detail/post-detail.component';
     MaterialModule,
     HttpClientModule,
     ReactiveFormsModule,
+    RouterModule.forChild(routes)
   ],
   providers: [HttpClientModule]
 })
