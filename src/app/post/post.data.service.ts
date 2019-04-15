@@ -27,8 +27,12 @@ export class PostDataService {
   }
 
   getPost$(id: string): Observable<Post> {
-    return this.http
-      .get(`${environment.apiUrl}/posts/${id}`)
-      .pipe(map((p: any): Post => Post.fromJSON(p)));
+    return this.http.get(`${environment.apiUrl}/posts/${id}`).pipe(
+      catchError(error => {
+        this.loadingError$.next(error.statusText);
+        return of();
+      }),
+      map((p: any): Post => Post.fromJSON(p))
+    );
   }
 }

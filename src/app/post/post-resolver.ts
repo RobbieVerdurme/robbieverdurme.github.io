@@ -13,12 +13,11 @@ import { Observable } from 'rxjs';
   providedIn: "root"
 })
 export class PostResolver implements Resolve<Post> {
+  //const
   constructor(private postDataService: PostDataService) {}
 
-  resolve(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Observable<Post> {
+  //meth
+  resolve(route: ActivatedRouteSnapshot,state: RouterStateSnapshot): Observable<Post> {
     return this.postDataService.getPost$(route.params["id"]);
   }
 }
