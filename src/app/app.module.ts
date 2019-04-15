@@ -2,36 +2,33 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-
-//Componenten
-import { AppComponent } from './app.component';
-import { PostComponent } from './post/post.component';
-import { CommentComponent } from './comment/comment.component';
-
-//Angular material
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatListModule, MatCardModule, MatIconModule, MatFormFieldModule, MatButtonModule, MatInputModule  } from '@angular/material';
-import { FlexLayoutModule } from '@angular/flex-layout';
 
+//routing
+import { AppRoutingModule } from './app-routing.module';
+import { PostModule } from './post/post.module';
+
+//Component
+import { AppComponent } from './app.component';
+import { MainNavComponent } from './main-nav/main-nav.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+
+//angular material
+import { MaterialModule } from './material/material.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PostComponent,
-    CommentComponent
+    MainNavComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
-    HttpClientModule,
     BrowserAnimationsModule,
-    FlexLayoutModule,
-    MatListModule,
-    MatCardModule,
-    MatIconModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatFormFieldModule,
-    MatButtonModule
+    HttpClientModule,
+    AppRoutingModule,
+    PostModule,
+    MaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]

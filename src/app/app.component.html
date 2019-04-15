@@ -1,25 +1,4 @@
 <!--The content below is only a placeholder and can be replaced.-->
-
-<!--POSTS-->
-<div fxLayout="column" fxLayoutGap="2%">
-  <div *ngIf="(posts$ | async) as posts; else loadingOrError">
-    <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="left">
-      <div *ngFor="let localPost of (posts$ | async)">
-        <app-post [post]="localPost"></app-post>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!--TEMPLATE-->
-<ng-template #loadingOrError>
-    <mat-card>
-      <mat-error *ngIf="(loadingError$ | async) as errorMessage; else loading">
-       Error loading the post list: {{ errorMessage }}. <br/>
-        Please try again later.
-      </mat-error>
-      <ng-template #loading>
-        Loading latist posts...
-      </ng-template>
-    </mat-card>
-  </ng-template> 
+<app-main-nav>
+  <router-outlet></router-outlet>
+</app-main-nav>
