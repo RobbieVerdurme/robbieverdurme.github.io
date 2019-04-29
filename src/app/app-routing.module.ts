@@ -11,8 +11,8 @@ import { SelectivePreloadStrategy } from './selective-preloading-strategy';
 
 
 const appRoutes:Routes = [
-  { path: 'post', loadChildren: './post/post.module#PostModule', data: {preload: true}},
-  { path: '', redirectTo: 'post', pathMatch: 'full'},
+  { path: 'post', loadChildren: './post/post.module#PostModule'},//, data: {preload: true}},
+  { path: '', redirectTo: 'post/list', pathMatch: 'full'},
   { path: '**', component: PageNotFoundComponent}
 ];
 
@@ -20,7 +20,7 @@ const appRoutes:Routes = [
   declarations: [],
   imports: [
     CommonModule,
-    RouterModule.forRoot(appRoutes, {preloadingStrategy: SelectivePreloadStrategy})
+    RouterModule.forRoot(appRoutes)//, {preloadingStrategy: SelectivePreloadStrategy})
   ],
   exports: [
     RouterModule

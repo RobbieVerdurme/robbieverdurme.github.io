@@ -20,7 +20,7 @@ import { MaterialModule } from './material/material.module';
   declarations: [
     AppComponent,
     MainNavComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,

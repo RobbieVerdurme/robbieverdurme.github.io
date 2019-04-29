@@ -1,0 +1,32 @@
+<mat-card>
+  <mat-card-title>add post</mat-card-title>
+  <mat-card-content>
+    <form [formGroup]="post" (ngSubmit)="onSubmit()">
+      <!--
+      <mat-form-field>
+        <input matInput aria-label="img" placeholder="img" type="image" formControlName="img" required />
+        <mat-error *ngIf="post.get('img').errors && post.get('img').touched">
+          {{ getErrorMessage(post.get('img').errors) }}
+        </mat-error>
+      </mat-form-field>
+-->
+      <mat-form-field>
+        <input matInput aria-label="title" placeholder="title" type="text" formControlName="title" required />
+        <mat-error *ngIf="post.get('title').errors && post.get('title').touched">
+          {{ getErrorMessage(post.get('title').errors) }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput aria-label="description" placeholder="description" type="text" formControlName="description" />
+        <mat-error *ngIf="post.get('description').errors && post.get('description').touched">
+          {{ getErrorMessage(post.get('description').errors) }}
+        </mat-error>
+      </mat-form-field>
+
+      <button type="submit" mat-raised-button [disabled]="!post.valid">
+        add
+      </button>
+    </form>
+  </mat-card-content>
+</mat-card>

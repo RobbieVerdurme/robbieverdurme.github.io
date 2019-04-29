@@ -15,6 +15,11 @@ export class PostDataService {
   //construtor
   constructor(private http: HttpClient) {}
 
+//methods
+  updatePost(post: Post) {
+    return this.http.put(`${environment.apiUrl}/posts/${post.id}`, post.toJSON)
+  }
+
   //getters
   get posts$(): Observable<Post[]> {
     return this.http.get(`${environment.apiUrl}/Posts/`).pipe(
@@ -34,5 +39,10 @@ export class PostDataService {
       }),
       map((p: any): Post => Post.fromJSON(p))
     );
+  }
+
+  //setter
+  addNewPost(post: Post) {
+    return this.http.post(`${environment.apiUrl}/posts`, post.toJSON);
   }
 }
