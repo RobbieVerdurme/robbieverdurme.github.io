@@ -1,1 +1,9 @@
-{{comment.comment}}
+<mat-card>
+    <mat-card-content>
+      {{comment.comment}}
+      <h3 mat-subheader>
+        added on {{comment.dateAdded | date: longdate }}<br>
+        By : {{comment.name}}
+      </h3>
+    </mat-card-content>
+  </mat-card>

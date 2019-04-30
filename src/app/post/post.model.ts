@@ -1,62 +1,70 @@
-export class Post{
-    //var
-    private _id: number;
+import { Comment } from "./comment.model";
 
-    //constructor
-    constructor(
-        private _img: string,
-        private _title: string,
-        private _description: string,
-        private _comments = new Array<string>(),
-        private _dateAdded = new Date()
-    ){}
+export class Post {
+  //var
+  private _id: number;
 
-    //methods
-    addComent(comment: string, auteur: string){
-        this._comments.push(`${comment} ${auteur}`)
-    }
+  //constructor
+  constructor(
+    private _img: string,
+    private _title: string,
+    private _description: string,
+    private _comments = new Array<Comment>(),
+    private _dateAdded = new Date()
+  ) {}
 
-    //get posts from jsonfile
-    static fromJSON(json: any): Post{
-        const post = new Post(json.img, json.title, json.comments, json.dateAdded);
-        return post;
-    }
+  //methods
+  addComent(comment: string) {
+    this._comments.push(new Comment("name", comment));
+  }
 
-    //tojson
-    toJSON(): any{
-        return {
-            id: this._id,
-            img: this._img,
-            title: this.title,
-            description: this._description,
-            comments: this._comments,
-            created: this._dateAdded
-        };
-    }
+  //tojson
+  toJSON(): any {
+    return {
+      id: this._id,
+      img: this.img,
+      title: this._title,
+      description: this._description,
+      comments: this._comments.map(com => com.toJSON()),
+      created: this._dateAdded
+    };
+  }
 
-    //getters 
-    get id(): number{
-        return this._id
-    }
+  //get posts from jsonfile
+  static fromJSON(json: any): Post {
+    const post = new Post(
+      json.img,
+      json.title,
+      json.description,
+      json.comments.map(Comment.fromJSON),
+      json.created
+    );
+    post._id = json.id;
+    return post;
+  }
 
-    get img(): string{
-        return this._img
-    }
+  //getters
+  get id(): number {
+    return this._id;
+  }
 
-    get title(): string{
-        return this._title
-    }
+  get img(): string {
+    return this._img;
+  }
 
-    get description(): string{
-        return this._description
-    }
+  get title(): string {
+    return this._title;
+  }
 
-    get comments(): string[]{
-        return this._comments
-    }
+  get description(): string {
+    return this._description;
+  }
 
-    get dateAdded(): Date{
-        return this._dateAdded
-    }
+  get comments(): Comment[] {
+    return this._comments;
+  }
 
+  get dateAdded(): Date {
+    return this._dateAdded;
+  }
 }

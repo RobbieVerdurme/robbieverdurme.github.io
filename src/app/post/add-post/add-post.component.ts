@@ -24,7 +24,7 @@ public post: FormGroup;
   ngOnInit() {
     this.post = this.fb.group({
       img: [''],
-      title: ['', [Validators.required, Validators.minLength(10)]],
+      title: ['', [Validators.required, Validators.minLength(2)]],
       description: ['']
     })
   }

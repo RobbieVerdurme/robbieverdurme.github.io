@@ -11,7 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class AddCommentComponent implements OnInit {
 //var
-public comment: FormGroup;
+public commentFG: FormGroup;
 private _post: Post;
 
 //constructor
@@ -24,13 +24,13 @@ private _post: Post;
 //methods
   ngOnInit() {
     this.route.data.subscribe(p => (this._post = p['post']));
-    this.comment = this.fb.group({
-      comment: ['', Validators.required, Validators.minLength(10)]
+    this.commentFG = this.fb.group({
+      comment: ['', [Validators.required, Validators.minLength(2)]]
     })
   }
 
   onSubmit(){
-    this._post.addComent(this.comment.value.comment, "")
+    this._post.addComent(this.commentFG.value.comment)
     this._postDataService
       .updatePost(this._post)
       .subscribe();

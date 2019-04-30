@@ -17,7 +17,7 @@ export class PostDataService {
 
 //methods
   updatePost(post: Post) {
-    return this.http.put(`${environment.apiUrl}/posts/${post.id}`, post.toJSON)
+    return this.http.put(`${environment.apiUrl}/Posts/${post.id}`, post.toJSON())
   }
 
   //getters
@@ -27,12 +27,12 @@ export class PostDataService {
         this.loadingError$.next(error.statusText);
         return of();
       }),
-      map((list: any[]): Post[] => list.map(Post.fromJSON))
-    );
+      map((list: any[]): Post[] => list.map(Post.fromJSON)
+    ));
   }
 
   getPost$(id: string): Observable<Post> {
-    return this.http.get(`${environment.apiUrl}/posts/${id}`).pipe(
+    return this.http.get(`${environment.apiUrl}/Posts/${id}`).pipe(
       catchError(error => {
         this.loadingError$.next(error.statusText);
         return of();
@@ -42,7 +42,7 @@ export class PostDataService {
   }
 
   //setter
-  addNewPost(post: Post) {
-    return this.http.post(`${environment.apiUrl}/posts`, post.toJSON);
+  addNewPost(p: Post) {
+    return this.http.post(`${environment.apiUrl}/Posts/`, p.toJSON());
   }
 }

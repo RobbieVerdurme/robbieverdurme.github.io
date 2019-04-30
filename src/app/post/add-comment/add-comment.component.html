@@ -1,13 +1,13 @@
 <mat-card>
     <mat-card-content>
-      <form [formGroup]="comment" (ngSubmit)="onSubmit()">
+      <form [formGroup]="commentFG" (ngSubmit)="onSubmit()">
         <mat-form-field>
-          <input matInput aria-label="comment" placeholder="comment" type="text" formControlName="comment" required />
-          <mat-error *ngIf="comment.get('comment').errors && comment.get('comment').touched">
-            {{ getErrorMessage(comment.get('comment').errors) }}
+          <textarea  matInput aria-label="comment" placeholder="comment" type="text" formControlName="comment" required></textarea>
+          <mat-error *ngIf="commentFG.get('comment').errors && commentFG.get('comment').touched">
+            {{ getErrorMessage(commentFG.get('comment').errors) }}
           </mat-error>
         </mat-form-field>  
-        <button type="submit" mat-raised-button [disabled]="!comment.valid">
+        <button type="submit" mat-raised-button [disabled]="!commentFG.valid">
           add
         </button>
       </form>
