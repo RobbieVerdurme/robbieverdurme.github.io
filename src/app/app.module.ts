@@ -6,7 +6,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 //routing
 import { AppRoutingModule } from './app-routing.module';
-import { PostModule } from './post/post.module';
 
 //Component
 import { AppComponent } from './app.component';
@@ -15,6 +14,10 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 
 //angular material
 import { MaterialModule } from './material/material.module';
+import { UserModule } from './user/user.module';
+
+//Auth
+import { httpInterceptorProviders } from "./interceptors";
 
 @NgModule({
   declarations: [
@@ -26,11 +29,11 @@ import { MaterialModule } from './material/material.module';
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    PostModule,
-    AppRoutingModule,
-    MaterialModule
+    MaterialModule,
+    UserModule,
+    AppRoutingModule    
   ],
-  providers: [],
+  providers: [httpInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
