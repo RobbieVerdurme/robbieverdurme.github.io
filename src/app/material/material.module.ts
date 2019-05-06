@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatListModule, MatCardModule, MatIconModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatToolbarModule, MatSidenavModule, MatProgressSpinnerModule, MatTreeModule } from '@angular/material';
 import { LayoutModule } from '@angular/cdk/layout';
+import { MaterialFileInputModule } from 'ngx-material-file-input';
 
 @NgModule({
   declarations: [],
@@ -22,7 +23,8 @@ import { LayoutModule } from '@angular/cdk/layout';
     MatToolbarModule,
     MatSidenavModule,
     MatProgressSpinnerModule,
-    MatTreeModule
+    MatTreeModule,
+    MaterialFileInputModule
   ],
   exports: [
     FlexLayoutModule,
@@ -36,7 +38,8 @@ import { LayoutModule } from '@angular/cdk/layout';
     MatToolbarModule,
     MatSidenavModule,
     MatProgressSpinnerModule,
-    MatTreeModule
+    MatTreeModule,
+    MaterialFileInputModule
   ]
 })
 export class MaterialModule { }

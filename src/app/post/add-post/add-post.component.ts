@@ -30,6 +30,10 @@ public post: FormGroup;
   }
 
   onSubmit(){
+    console.log(this.post.value.img);
+    this.post.get('img').setValue(this.post.value.img._files[0]);
+    console.log(this.post.value.img);
+
     this._postDataService
       .addNewPost(new Post(this.post.value.img, this.post.value.title, this.post.value.description))
       .subscribe();

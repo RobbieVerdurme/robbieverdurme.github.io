@@ -14,11 +14,12 @@ import { RouterModule } from '@angular/router';
 import { PostResolver } from './post-resolver';
 import { AddPostComponent } from './add-post/add-post.component';
 import { AddCommentComponent } from './add-comment/add-comment.component';
+import { AuthGuard } from '../user/auth.guard';
 
 const routes = [
-  { path: 'post/list', component: PostListComponent},
-  { path: 'post/add', component: AddPostComponent},
-  { path: 'post/:id', component: PostDetailComponent, resolve: {post : PostResolver}},
+  { path: 'list', component: PostListComponent},
+  { path: 'add',canActivate: [AuthGuard], component: AddPostComponent},
+  { path: ':id',canActivate: [AuthGuard], component: PostDetailComponent, resolve: {post : PostResolver}},
 ]
 
 @NgModule({

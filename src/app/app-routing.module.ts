@@ -14,7 +14,7 @@ import { AuthGuard } from './user/auth.guard';
 
 
 const appRoutes:Routes = [
-  { path: 'post', canActivate: [AuthGuard], loadChildren: './post/post.module#PostModule'},//, data: {preload: true}},
+  { path: 'post', loadChildren: './post/post.module#PostModule'},//, data: {preload: true}},
   { path: '', redirectTo: 'post/list', pathMatch: 'full'},
   { path: '**', component: PageNotFoundComponent}
 ];
