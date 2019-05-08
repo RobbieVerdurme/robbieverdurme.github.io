@@ -14,8 +14,9 @@ export class Post {
   ) {}
 
   //methods
-  addComent(comment: string) {
-    this._comments.push(new Comment("name", comment));
+  addComent(name:string, comment: string) {
+    console.log(comment);
+    this._comments.push(new Comment(name, comment));
   }
 
   //tojson

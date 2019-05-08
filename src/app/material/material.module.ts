@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 
 //angular material
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatListModule, MatCardModule, MatIconModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatToolbarModule, MatSidenavModule, MatProgressSpinnerModule, MatTreeModule } from '@angular/material';
+import { MatListModule, MatCardModule, MatIconModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatToolbarModule, MatSidenavModule, MatProgressSpinnerModule, MatDividerModule } from '@angular/material';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MaterialFileInputModule } from 'ngx-material-file-input';
 
@@ -23,8 +23,8 @@ import { MaterialFileInputModule } from 'ngx-material-file-input';
     MatToolbarModule,
     MatSidenavModule,
     MatProgressSpinnerModule,
-    MatTreeModule,
-    MaterialFileInputModule
+    MaterialFileInputModule,
+    MatDividerModule
   ],
   exports: [
     FlexLayoutModule,
@@ -38,8 +38,8 @@ import { MaterialFileInputModule } from 'ngx-material-file-input';
     MatToolbarModule,
     MatSidenavModule,
     MatProgressSpinnerModule,
-    MatTreeModule,
-    MaterialFileInputModule
+    MaterialFileInputModule,
+    MatDividerModule
   ]
 })
 export class MaterialModule { }

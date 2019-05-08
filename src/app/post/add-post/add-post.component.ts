@@ -3,6 +3,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PostDataService } from '../post.data.service';
 import { Post } from '../post.model';
 import { Router } from '@angular/router';
+import { fromEvent, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-add-post',
@@ -12,6 +14,7 @@ import { Router } from '@angular/router';
 export class AddPostComponent implements OnInit {
 //var
 public post: FormGroup;
+imgSrc: Blob = null;
 
 //constructor
   constructor(
@@ -23,17 +26,31 @@ public post: FormGroup;
 //methods
   ngOnInit() {
     this.post = this.fb.group({
-      img: [''],
+      img: [undefined, [Validators.required]],
       title: ['', [Validators.required, Validators.minLength(2)]],
       description: ['']
     })
   }
+  
+  readFile(file: File | Blob): Observable<any> {
+    const reader = new FileReader();
+    let loadend = fromEvent(reader, 'loadend').pipe(
+      map((read: any) => {
+        return read.target.result;
+      })
+    );
+    reader.readAsDataURL(file);
+    return loadend;
+  }
+
+  onFileChange(event){
+    this.readFile(<File>event.target.files[0]).subscribe(res => {
+      this.imgSrc = res;
+      this.post.get('img').setValue(res);
+    });
+  }
 
   onSubmit(){
-    console.log(this.post.value.img);
-    this.post.get('img').setValue(this.post.value.img._files[0]);
-    console.log(this.post.value.img);
-
     this._postDataService
       .addNewPost(new Post(this.post.value.img, this.post.value.title, this.post.value.description))
       .subscribe();

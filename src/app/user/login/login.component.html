@@ -1,6 +1,9 @@
 <div fxLayout="row" fxLayoutAlign="center center" class="login-main">
   <mat-card>
     <form [formGroup]="user" (ngSubmit)="onSubmit()">
+        <div *ngIf="errorMsg" class="error">
+            {{errorMsg}}
+        </div>
       <mat-card-header>
         <mat-card-title>Login</mat-card-title>
       </mat-card-header>

@@ -1,14 +1,8 @@
 import { AuthenticationService } from '../authentication.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import {AbstractControl,FormBuilder,FormGroup,ValidatorFn,Validators} from '@angular/forms';
+import {FormBuilder,FormGroup,Validators} from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
-
-function comparePasswords(control: AbstractControl): { [key: string]: any } {
-  const password = control.get('password');
-  const confirmPassword = control.get('confirmPassword');
-  return password.value === confirmPassword.value?null:{ passwordsDiffer: true };
-}
 
 @Component({
   selector: 'app-login',
@@ -30,8 +24,8 @@ export class LoginComponent implements OnInit {
   //methods
   ngOnInit() {
     this.user = this.fb.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required]
+      username: ['', [Validators.required]],
+      password: ['', [Validators.required]]
     });
   }
 
@@ -52,15 +46,10 @@ export class LoginComponent implements OnInit {
           }
         },
         (err: HttpErrorResponse) => {
-          console.log(err);
           if (err.error instanceof Error) {
-            this.errorMsg = `Error while trying to login user ${
-              this.user.value.username
-            }: ${err.error.message}`;
+            this.errorMsg = `Error while trying to login user ${this.user.value.username}`;
           } else {
-            this.errorMsg = `Error ${err.status} while trying to login user ${
-              this.user.value.username
-            }: ${err.error}`;
+            this.errorMsg = `Error ${err.status} while trying to login user ${this.user.value.username}`;
           }
         }
       );

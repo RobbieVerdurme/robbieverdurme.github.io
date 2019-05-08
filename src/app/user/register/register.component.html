@@ -4,6 +4,9 @@
       <mat-card-header>
         <mat-card-title>Register</mat-card-title>
       </mat-card-header>
+      <div *ngIf="errorMsg" class="error">
+          {{errorMsg}}
+      </div>
       <mat-card-content fxLayout="column">
         <span fxLayout="row" fxLayoutGap="2%">
           <mat-form-field>
@@ -28,8 +31,7 @@
         </mat-form-field>
         <span fxLayout="column" formGroupName="passwordGroup">
           <mat-form-field>
-            <input type="password" matInput placeholder="password" aria-label="password" data-cy="register-password"
-              formControlName="password" />
+            <input type="password" matInput placeholder="password" aria-label="password" data-cy="register-password" formControlName="password" />
             <mat-error *ngIf="user.get('passwordGroup').get('password').errors && user.get('passwordGroup').get('password').touched">
               {{getErrorMessage(user.get('passwordGroup').get('password').errors)}}
             </mat-error>

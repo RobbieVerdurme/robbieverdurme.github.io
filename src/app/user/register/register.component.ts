@@ -25,6 +25,13 @@ function serverSideValidateUsername(checkAvailabilityFn: (n: string) => Observab
   };
 }
 
+function regexPassword(nameRe: RegExp): ValidatorFn {
+  return (control: AbstractControl): {[key: string]: any} | null => {
+    const forbidden = nameRe.test(control.value);
+    return forbidden ? null: {regexPassword: true};
+  };
+}
+
 @Component({
   selector: "app-register",
   templateUrl: "./register.component.html",
@@ -50,7 +57,7 @@ export class RegisterComponent implements OnInit {
       email: ["",[Validators.required, Validators.email],serverSideValidateUsername(this.authService.checkUserNameAvailability)],
       passwordGroup: this.fb.group(
         {
-          password: ["", [Validators.required, Validators.minLength(8)]],
+          password: ["", [Validators.required, Validators.minLength(8), regexPassword(new RegExp("^((?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])|(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[^a-zA-Z0-9])|(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[^a-zA-Z0-9])|(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^a-zA-Z0-9])).{8,}$"))], ],
           confirmPassword: ["", Validators.required]
         },{ validator: comparePasswords }
       )
@@ -64,16 +71,15 @@ export class RegisterComponent implements OnInit {
     if (errors.required) {
       return "is required";
     } else if (errors.minlength) {
-      return `needs at least ${
-        errors.minlength.requiredLength
-      } characters (got ${errors.minlength.actualLength})`;
+      return `needs at least ${errors.minlength.requiredLength} characters (got ${errors.minlength.actualLength})`;
     } else if (errors.userAlreadyExists) {
       return `user already exists`;
     } else if (errors.email) {
       return `not a valid email address`;
     } else if (errors.passwordsDiffer) {
       return `passwords are not the same`;
-    }
+    } else if (errors.regexPassword)
+      return `password must have special characters`;
   }
 
   onSubmit() {
@@ -95,19 +101,14 @@ export class RegisterComponent implements OnInit {
               this.router.navigate(["/post/list"]);
             }
           } else {
-            this.errorMsg = `Could not login`;
+            this.errorMsg = `Could not registering user`;
           }
         },
         (err: HttpErrorResponse) => {
-          console.log(err);
           if (err.error instanceof Error) {
-            this.errorMsg = `Error while trying to login user ${
-              this.user.value.email
-            }: ${err.error.message}`;
+            this.errorMsg = `Error while trying to registering user ${this.user.value.email}`;
           } else {
-            this.errorMsg = `Error ${err.status} while trying to login user ${
-              this.user.value.email
-            }: ${err.error}`;
+            this.errorMsg = `Error ${err.status} while trying to registering user ${this.user.value.email}`;
           }
         }
       );
