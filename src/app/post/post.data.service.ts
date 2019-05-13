@@ -45,4 +45,5 @@ export class PostDataService {
   addNewPost(p: Post) {
     return this.http.post(`${environment.apiUrl}/Posts/`, p.toJSON());
   }
+
 }

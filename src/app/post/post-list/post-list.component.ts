@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Post } from '../post.model';
 import { PostDataService } from '../post.data.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-post-list',

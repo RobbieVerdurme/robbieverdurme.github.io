@@ -15,7 +15,6 @@ export class Post {
 
   //methods
   addComent(name:string, comment: string) {
-    console.log(comment);
     this._comments.push(new Comment(name, comment));
   }
 

@@ -4,7 +4,6 @@ import { PostDataService } from '../post.data.service';
 import { Post } from '../post.model';
 import { ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from 'src/app/user/authentication.service';
-import { fbind } from 'q';
 
 @Component({
   selector: 'app-add-comment',
