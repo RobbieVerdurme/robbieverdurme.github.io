@@ -23,4 +23,8 @@ export class MainNavComponent {
   logout() {
     this._authenticationService.logout();
   }
+
+  get isAdmin(){
+    return this._authenticationService.isAdmin();
+  }
 }

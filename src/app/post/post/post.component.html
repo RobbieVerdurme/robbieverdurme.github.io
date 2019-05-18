@@ -1,5 +1,5 @@
 <mat-card>
-    <img mat-card-image src='{{post.img}}' alt='{{post.title}}'/>
+    <img mat-card-image src='{{post.img}}' alt='{{post.title}}' [routerLink]="['/post', post.id]"/>
   <mat-card-header>
     <mat-card-title>
       <a [routerLink]="['/post', post.id]"> {{post.title}} </a>
@@ -8,13 +8,13 @@
       {{post.description}} <br>
       added on {{post.dateAdded | date: longdate }}
     </mat-card-subtitle>
-  </mat-card-header>  
+  </mat-card-header> 
+  <!--
   <mat-card-content>
     <h3 mat-subheader>Comments</h3>
-    <mat-list>
-      <mat-list-item *ngFor="let comment of post.comments">
+      <div *ngFor="let comment of post.comments">
         <app-comment [comment]="comment"></app-comment>
-      </mat-list-item>
-    </mat-list>
+      </div>
   </mat-card-content>
+  --> 
 </mat-card>

@@ -95,4 +95,13 @@ export class AuthenticationService {
   checkUserNameAvailability = (email: string): Observable<boolean> => {
     return this.http.get<boolean>(`${environment.apiUrl}/account/checkusername`,{params: { email }});
   };
+
+  isAdmin(): boolean{
+    var token = localStorage.getItem(this._tokenKey);
+    var decriptedToken = parseJwt(token);
+    if(decriptedToken){
+      return decriptedToken.roles == "Admin";
+    }
+    return false;
+  }
 }

@@ -78,8 +78,9 @@ export class RegisterComponent implements OnInit {
       return `not a valid email address`;
     } else if (errors.passwordsDiffer) {
       return `passwords are not the same`;
-    } else if (errors.regexPassword)
+    } else if (errors.regexPassword){
       return `password must have special characters`;
+    }
   }
 
   onSubmit() {

@@ -7,7 +7,7 @@
       <a mat-list-item [routerLink]="['post/list']">
         <mat-icon>home</mat-icon>Home
       </a>
-      <a mat-list-item [routerLink]="['post/add']">Add Post</a>
+      <a mat-list-item [routerLink]="['post/add']" *ngIf="isAdmin">Add Post</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
