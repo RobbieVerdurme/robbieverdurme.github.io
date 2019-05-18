@@ -1,7 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { Post } from "../post.model";
-import { ActivatedRoute } from "@angular/router";
-import { PostDataService } from "../post.data.service";
+import { ActivatedRoute, Router } from "@angular/router";
+import { AuthenticationService } from 'src/app/user/authentication.service';
+import { PostDataService } from '../post.data.service';
+import { routerNgProbeToken } from '@angular/router/src/router_module';
 
 @Component({
   selector: "app-post-detail",
@@ -15,10 +17,22 @@ export class PostDetailComponent implements OnInit {
   //const
   constructor(
     private route: ActivatedRoute,
+    private authService : AuthenticationService,
+    private postDataService : PostDataService,
+    private router: Router
   ) {}
 
   //meth
   ngOnInit() {
     this.route.data.subscribe(p => (this.post = p['post']));
+  }
+
+  isAdmin(): Boolean{
+    return this.authService.isAdmin();
+  }
+
+  deletePost(){
+    this.postDataService.deletePost(this.post).subscribe();
+    this.router.navigate(['/post/list']);
   }
 }

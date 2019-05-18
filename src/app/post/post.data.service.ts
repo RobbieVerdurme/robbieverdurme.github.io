@@ -17,7 +17,11 @@ export class PostDataService {
 
 //methods
   updatePost(post: Post) {
-    return this.http.put(`${environment.apiUrl}/Posts/${post.id}`, post.toJSON())
+    return this.http.put(`${environment.apiUrl}/Posts/${post.id}`, post.toJSON());
+  }
+
+  deletePost(post: Post){
+    return this.http.delete(`${environment.apiUrl}/Posts/${post.id}`, post.toJSON());
   }
 
   //getters
