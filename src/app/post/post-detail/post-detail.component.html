@@ -2,12 +2,9 @@
 <mat-card>
   <img mat-card-image src='{{post.img}}' alt='{{post.title}}'/>
   <mat-card-header>
+    <div *ngIf="isAdmin"><span class="fillspace"></span><button mat-button (click)="deletePost()" ng-show="isAdmin"><mat-icon>delete</mat-icon></button></div>
     <mat-card-title>
-      <div *ngIf="isAdmin">
-          <button mat-button (click)="deletePost()"><mat-icon>delete</mat-icon></button>
-      </div>
       {{post.title}}
-      
     </mat-card-title>
     <mat-card-subtitle>
       {{post.description}} <br>

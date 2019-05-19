@@ -1,9 +1,12 @@
 <mat-card>
-  <mat-card-title>
-      {{comment.comment}}
-  </mat-card-title>
-  <mat-card-subtitle>
-      added on {{comment.dateAdded | date: 'd MMMM y' }}<br>
-      By : {{comment.name}}
-  </mat-card-subtitle>
+  <mat-card-header>
+      <div *ngIf="isAdmin"><span class="fillspace"></span><button mat-button (click)="deleteComment()" ng-show="isAdmin"><mat-icon>delete</mat-icon></button></div>
+      <mat-card-title>
+          {{comment.comment}}
+      </mat-card-title>
+      <mat-card-subtitle>
+          added on {{comment.dateAdded | date: 'd MMMM y' }}<br>
+          By : {{comment.name}}
+      </mat-card-subtitle>
+  </mat-card-header>
 </mat-card>

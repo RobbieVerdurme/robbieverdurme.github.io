@@ -27,7 +27,7 @@ export class PostDetailComponent implements OnInit {
     this.route.data.subscribe(p => (this.post = p['post']));
   }
 
-  isAdmin(): Boolean{
+  get isAdmin(): Boolean{
     return this.authService.isAdmin();
   }
 

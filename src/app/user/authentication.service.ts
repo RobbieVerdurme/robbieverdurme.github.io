@@ -47,7 +47,7 @@ export class AuthenticationService {
 
   login(username:string, email: string, password: string): Observable<boolean> {
     return this.http
-      .post(`${environment.apiUrl}/account`,{email, username, password },{ responseType: 'text' })
+      .post(`http://projectwebivbackend20190519035639.azurewebsites.net/api/account`,{email, username, password },{ responseType: 'text' })
       .pipe(
         map((token: any) => {
           if (token) {
@@ -69,7 +69,7 @@ export class AuthenticationService {
   }
 
   register(username: string,firstname: string,lastname: string,email: string,password: string): Observable<boolean> {
-    return this.http.post(`${environment.apiUrl}/account/register`,
+    return this.http.post(`http://projectwebivbackend20190519035639.azurewebsites.net/api/account/register`,
       {
           username,
           firstname,
@@ -93,7 +93,7 @@ export class AuthenticationService {
   }
 
   checkUserNameAvailability = (email: string): Observable<boolean> => {
-    return this.http.get<boolean>(`${environment.apiUrl}/account/checkusername`,{params: { email }});
+    return this.http.get<boolean>(`http://projectwebivbackend20190519035639.azurewebsites.net/api/account/checkusername`,{params: { email }});
   };
 
   isAdmin(): boolean{

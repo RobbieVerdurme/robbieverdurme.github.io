@@ -4,6 +4,7 @@ import { Observable, Subject, of } from "rxjs";
 import { map, catchError } from "rxjs/operators";
 import { environment } from "src/environments/environment";
 import { Post } from "./post.model";
+import { Comment } from './comment.model';
 
 @Injectable({
   providedIn: "root"
@@ -17,16 +18,20 @@ export class PostDataService {
 
 //methods
   updatePost(post: Post) {
-    return this.http.put(`${environment.apiUrl}/Posts/${post.id}`, post.toJSON());
+    return this.http.put(`http://projectwebivbackend20190519035639.azurewebsites.net/api/Posts/${post.id}`, post.toJSON());
   }
 
   deletePost(post: Post){
-    return this.http.delete(`${environment.apiUrl}/Posts/${post.id}`, post.toJSON());
+    return this.http.delete(`http://projectwebivbackend20190519035639.azurewebsites.net/api/Posts/${post.id}`, post.toJSON());
+  }
+
+  deleteComment(postid : number, comment : Comment){
+    return this.http.delete(`http://projectwebivbackend20190519035639.azurewebsites.net/api/Posts/${postid}/comment`, comment.toJSON());
   }
 
   //getters
   get posts$(): Observable<Post[]> {
-    return this.http.get(`${environment.apiUrl}/Posts/`).pipe(
+    return this.http.get(`http://projectwebivbackend20190519035639.azurewebsites.net/api/Posts/`).pipe(
       catchError(error => {
         this.loadingError$.next(error.statusText);
         return of();
@@ -36,7 +41,7 @@ export class PostDataService {
   }
 
   getPost$(id: string): Observable<Post> {
-    return this.http.get(`${environment.apiUrl}/Posts/${id}`).pipe(
+    return this.http.get(`http://projectwebivbackend20190519035639.azurewebsites.net/api/Posts/${id}`).pipe(
       catchError(error => {
         this.loadingError$.next(error.statusText);
         return of();
@@ -47,7 +52,7 @@ export class PostDataService {
 
   //setter
   addNewPost(p: Post) {
-    return this.http.post(`${environment.apiUrl}/Posts/`, p.toJSON());
+    return this.http.post(`http://projectwebivbackend20190519035639.azurewebsites.net/api/Posts/`, p.toJSON());
   }
 
 }
