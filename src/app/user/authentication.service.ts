@@ -47,7 +47,7 @@ export class AuthenticationService {
 
   login(username:string, email: string, password: string): Observable<boolean> {
     return this.http
-      .post(`http://projectwebivbackend20190519035639.azurewebsites.net/api/account`,{email, username, password },{ responseType: 'text' })
+      .post(`https://projectwebivbackend20190519035639.azurewebsites.net/api/Account`,{email, username, password },{ responseType: 'text' })
       .pipe(
         map((token: any) => {
           if (token) {
@@ -69,7 +69,7 @@ export class AuthenticationService {
   }
 
   register(username: string,firstname: string,lastname: string,email: string,password: string): Observable<boolean> {
-    return this.http.post(`http://projectwebivbackend20190519035639.azurewebsites.net/api/account/register`,
+    return this.http.post(`https://projectwebivbackend20190519035639.azurewebsites.net/api/Account/register`,
       {
           username,
           firstname,

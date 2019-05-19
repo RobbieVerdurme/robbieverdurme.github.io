@@ -18,20 +18,20 @@ export class PostDataService {
 
 //methods
   updatePost(post: Post) {
-    return this.http.put(`http://projectwebivbackend20190519035639.azurewebsites.net/api/Posts/${post.id}`, post.toJSON());
+    return this.http.put(`https://projectwebivbackend20190519035639.azurewebsites.net/api/Posts/${post.id}`, post.toJSON());
   }
 
   deletePost(post: Post){
-    return this.http.delete(`http://projectwebivbackend20190519035639.azurewebsites.net/api/Posts/${post.id}`, post.toJSON());
+    return this.http.delete(`https://projectwebivbackend20190519035639.azurewebsites.net/api/Posts/${post.id}`, post.toJSON());
   }
 
   deleteComment(postid : number, comment : Comment){
-    return this.http.delete(`http://projectwebivbackend20190519035639.azurewebsites.net/api/Posts/${postid}/comment`, comment.toJSON());
+    return this.http.delete(`https://projectwebivbackend20190519035639.azurewebsites.net/api/Posts/${postid}/comment`, comment.toJSON());
   }
 
   //getters
   get posts$(): Observable<Post[]> {
-    return this.http.get(`http://projectwebivbackend20190519035639.azurewebsites.net/api/Posts/`).pipe(
+    return this.http.get(`https://projectwebivbackend20190519035639.azurewebsites.net/api/Posts/`).pipe(
       catchError(error => {
         this.loadingError$.next(error.statusText);
         return of();
@@ -41,7 +41,7 @@ export class PostDataService {
   }
 
   getPost$(id: string): Observable<Post> {
-    return this.http.get(`http://projectwebivbackend20190519035639.azurewebsites.net/api/Posts/${id}`).pipe(
+    return this.http.get(`https://projectwebivbackend20190519035639.azurewebsites.net/api/Posts/${id}`).pipe(
       catchError(error => {
         this.loadingError$.next(error.statusText);
         return of();
