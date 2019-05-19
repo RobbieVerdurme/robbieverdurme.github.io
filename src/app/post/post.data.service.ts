@@ -21,6 +21,10 @@ export class PostDataService {
     return this.http.put(`https://projectwebivbackend20190519035639.azurewebsites.net/api/Posts/${post.id}`, post.toJSON());
   }
 
+  addComment(post:Post, comment: Comment){
+    return this.http.post(`https://projectwebivbackend20190519035639.azurewebsites.net/api/Posts/${post.id}/comment`, comment.toJSON());
+  }
+
   deletePost(post: Post){
     return this.http.delete(`https://projectwebivbackend20190519035639.azurewebsites.net/api/Posts/${post.id}`, post.toJSON());
   }
@@ -52,7 +56,7 @@ export class PostDataService {
 
   //setter
   addNewPost(p: Post) {
-    return this.http.post(`http://projectwebivbackend20190519035639.azurewebsites.net/api/Posts/`, p.toJSON());
+    return this.http.post(`https://projectwebivbackend20190519035639.azurewebsites.net/api/Posts/`, p.toJSON());
   }
 
 }

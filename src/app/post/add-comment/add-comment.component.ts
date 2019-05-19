@@ -4,6 +4,7 @@ import { PostDataService } from '../post.data.service';
 import { Post } from '../post.model';
 import { ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from 'src/app/user/authentication.service';
+import { Comment } from '../comment.model';
 
 @Component({
   selector: 'app-add-comment',
@@ -32,10 +33,11 @@ private _post: Post;
   }
 
   onSubmit(){
-    this._post.addComent(this.authservice.user$.getValue(),this.commentFG.value.comment)
+    const comment = new Comment(this.authservice.user$.getValue(),this.commentFG.value.comment);
+    this._post.addComent(comment);
     this.commentFG.reset();
     this._postDataService
-      .updatePost(this._post)
+      .addComment(this._post, comment)
       .subscribe();
   }
 

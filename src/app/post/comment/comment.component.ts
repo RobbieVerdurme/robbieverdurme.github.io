@@ -31,6 +31,5 @@ export class CommentComponent implements OnInit {
 
   deleteComment(){
     this.postDataService.deleteComment(this.post.id, this.comment).subscribe();
-    this.router.navigate(['/post/list']);
   }
 }

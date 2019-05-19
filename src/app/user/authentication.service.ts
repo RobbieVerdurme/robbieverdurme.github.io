@@ -93,7 +93,7 @@ export class AuthenticationService {
   }
 
   checkUserNameAvailability = (email: string): Observable<boolean> => {
-    return this.http.get<boolean>(`http://projectwebivbackend20190519035639.azurewebsites.net/api/account/checkusername`,{params: { email }});
+    return this.http.get<boolean>(`https://projectwebivbackend20190519035639.azurewebsites.net/api/account/checkusername`,{params: { email }});
   };
 
   isAdmin(): boolean{
