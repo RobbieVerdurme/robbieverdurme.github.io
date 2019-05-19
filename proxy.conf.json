@@ -1,9 +1,8 @@
 {
     "/api": {
       "target": {
-        "host": "localhost",
-        "protocol": "https:",
-        "port": 44330
+        "host": "https://projectwebivbackend.azurewebsites.net",
+        "protocol": "https:"
       },
       "secure": false,
       "changeOrigin": true,
