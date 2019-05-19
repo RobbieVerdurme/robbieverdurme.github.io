@@ -1,7 +1,7 @@
 {
     "/api": {
       "target": {
-        "host": "https://projectwebivbackend.azurewebsites.net",
+        "host": "projectwebivbackend20190519035639.azurewebsites.net",
         "protocol": "https:"
       },
       "secure": false,
