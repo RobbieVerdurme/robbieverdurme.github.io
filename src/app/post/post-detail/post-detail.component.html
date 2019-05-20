@@ -2,13 +2,16 @@
 <mat-card>
   <img mat-card-image src='{{post.img}}' alt='{{post.title}}'/>
   <mat-card-header>
-    <div *ngIf="isAdmin"><span class="fillspace"></span><button mat-button (click)="deletePost()" ng-show="isAdmin"><mat-icon>delete</mat-icon></button></div>
+      <div *ngIf="isAdmin">
+        <span class="fill-space"></span>
+          <button mat-button (click)="deletePost()"><mat-icon>delete</mat-icon></button>
+      </div>
     <mat-card-title>
       {{post.title}}
     </mat-card-title>
     <mat-card-subtitle>
       {{post.description}} <br>
-      added on {{post.dateAdded | date: 'd MMMM y' }}
+      added on {{post.dateAdded | date: longdate }}
     </mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>

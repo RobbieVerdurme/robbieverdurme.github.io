@@ -18,13 +18,12 @@ import { UserModule } from './user/user.module';
 
 //Auth
 import { httpInterceptorProviders } from "./interceptors";
-import { PostModule } from './post/post.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     MainNavComponent,
-    PageNotFoundComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,

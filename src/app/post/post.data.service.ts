@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable, Subject, of } from "rxjs";
-import { map, catchError } from "rxjs/operators";
+import { map, catchError, delay } from "rxjs/operators";
 import { environment } from "src/environments/environment";
 import { Post } from "./post.model";
 import { Comment } from './comment.model';
@@ -18,34 +18,34 @@ export class PostDataService {
 
 //methods
   updatePost(post: Post) {
-    return this.http.put(`https://projectwebivbackend20190519035639.azurewebsites.net/api/Posts/${post.id}`, post.toJSON());
+    return this.http.put(`${environment.apiUrl}/Posts/${post.id}`, post.toJSON());
   }
-
+  
   addComment(post:Post, comment: Comment){
-    return this.http.post(`https://projectwebivbackend20190519035639.azurewebsites.net/api/Posts/${post.id}/comment`, comment.toJSON());
+    return this.http.post(`${environment.apiUrl}/Posts/${post.id}/comment`, comment.toJSON());
   }
 
   deletePost(post: Post){
-    return this.http.delete(`https://projectwebivbackend20190519035639.azurewebsites.net/api/Posts/${post.id}`, post.toJSON());
+    return this.http.delete(`${environment.apiUrl}/Posts/${post.id}`, post.toJSON());
   }
 
   deleteComment(post : Post, comment: Comment){
-    return this.http.delete(`https://projectwebivbackend20190519035639.azurewebsites.net/api/Posts/${post.id}/${comment.id}`, comment.toJSON());
+    return this.http.delete(`${environment.apiUrl}/Posts/${post.id}/${comment.id}`, comment.toJSON());
   }
 
   //getters
   get posts$(): Observable<Post[]> {
-    return this.http.get(`https://projectwebivbackend20190519035639.azurewebsites.net/api/Posts/`).pipe(
+    return this.http.get(`${environment.apiUrl}/Posts/`).pipe(
       catchError(error => {
         this.loadingError$.next(error.statusText);
         return of();
       }),
-      map((list: any[]): Post[] => list.map(Post.fromJSON)
+      map((list: any[]): Post[] => list.map(Post.fromJSON),
     ));
   }
 
   getPost$(id: string): Observable<Post> {
-    return this.http.get(`https://projectwebivbackend20190519035639.azurewebsites.net/api/Posts/${id}`).pipe(
+    return this.http.get(`${environment.apiUrl}/Posts/${id}`).pipe(
       catchError(error => {
         this.loadingError$.next(error.statusText);
         return of();
@@ -56,7 +56,7 @@ export class PostDataService {
 
   //setter
   addNewPost(p: Post) {
-    return this.http.post(`https://projectwebivbackend20190519035639.azurewebsites.net/api/Posts/`, p.toJSON());
+    return this.http.post(`${environment.apiUrl}/Posts/`, p.toJSON());
   }
 
 }

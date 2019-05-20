@@ -3,6 +3,9 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { User } from './User';
+import { Customer } from './customer';
+import { Router } from '@angular/router';
 
 
 function parseJwt(token) {
@@ -20,11 +23,11 @@ function parseJwt(token) {
 export class AuthenticationService {
   //var
   private readonly _tokenKey = 'currentUser';
-  private _user$: BehaviorSubject<string>;
+  private _user$: BehaviorSubject<User>;
   public redirectUrl: string;
   
 //constructor
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router: Router) {
     let parsedToken = parseJwt(localStorage.getItem(this._tokenKey));
     if (parsedToken) {
       const expires = new Date(parseInt(parsedToken.exp, 10) * 1000) < new Date();
@@ -33,26 +36,19 @@ export class AuthenticationService {
         parsedToken = null;
       }
     }
-    this._user$ = new BehaviorSubject<string>(parsedToken && parsedToken.unique_name);
+    this._user$ = new BehaviorSubject<User>(parsedToken && parsedToken.unique_name);
   }
 
-  get user$(): BehaviorSubject<string> {
-    return this._user$;
-  }
-
-  get token(): string {
-    const localToken = localStorage.getItem(this._tokenKey);
-    return !!localToken ? localToken : '';
-  }
-
+  //methods
   login(username:string, email: string, password: string): Observable<boolean> {
     return this.http
-      .post(`https://projectwebivbackend20190519035639.azurewebsites.net/api/Account`,{email, username, password },{ responseType: 'text' })
+      .post(`${environment.apiUrl}/account`,{email, username, password },{ responseType: 'text' })
       .pipe(
         map((token: any) => {
           if (token) {
             localStorage.setItem(this._tokenKey, token);
-            this._user$.next(email);
+            let parsedToken = parseJwt(token);
+            this._user$.next(new User(username, email, parsedToken.roles));
             return true;
           } else {
             return false;
@@ -65,11 +61,12 @@ export class AuthenticationService {
     if (this.user$.getValue()) {
       localStorage.removeItem(this._tokenKey);
       this._user$.next(null);
+      this.router.navigate(['/post/list']);
     }
   }
 
   register(username: string,firstname: string,lastname: string,email: string,password: string): Observable<boolean> {
-    return this.http.post(`https://projectwebivbackend20190519035639.azurewebsites.net/api/Account/register`,
+    return this.http.post(`${environment.apiUrl}/account/register`,
       {
           username,
           firstname,
@@ -83,7 +80,8 @@ export class AuthenticationService {
         map((token: any) => {
           if (token) {
             localStorage.setItem(this._tokenKey, token);
-            this._user$.next(email);
+            let parsedToken = parseJwt(token);
+            this._user$.next(new User(username, email, parsedToken.roles));
             return true;
           } else {
             return false;
@@ -93,14 +91,34 @@ export class AuthenticationService {
   }
 
   checkUserNameAvailability = (email: string): Observable<boolean> => {
-    return this.http.get<boolean>(`https://projectwebivbackend20190519035639.azurewebsites.net/api/account/checkusername`,{params: { email }});
+    return this.http.get<boolean>(`${environment.apiUrl}/account/checkusername`,{params: { email }});
   };
 
+  //get
+  get user$(): BehaviorSubject<User> {
+    return this._user$;
+  }
+
+  get token(): string {
+    const localToken = localStorage.getItem(this._tokenKey);
+    if(localToken){
+      let parsedToken = parseJwt(localToken);
+      this._user$.next(new User(parsedToken.sub, parsedToken.unique_name, parsedToken.roles));
+      return localToken;
+    }
+    return '';
+  }
+
+  getCustomer$(customer : Customer): Observable<Customer>{
+    return this.http.get(`${environment.apiUrl}/account/${customer.email}`)
+    .pipe(
+      map((p: any): Customer => Customer.fromJSON(p))
+    );
+  }
+
   isAdmin(): boolean{
-    var token = localStorage.getItem(this._tokenKey);
-    var decriptedToken = parseJwt(token);
-    if(decriptedToken){
-      return decriptedToken.roles == "Admin";
+    if(this._user$.getValue()){
+      return this._user$.getValue().role === 'Admin' ? true : false;
     }
     return false;
   }

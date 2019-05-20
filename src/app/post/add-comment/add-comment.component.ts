@@ -33,7 +33,7 @@ private _post: Post;
   }
 
   onSubmit(){
-    const comment = new Comment(this.authservice.user$.getValue(),this.commentFG.value.comment);
+    const comment = new Comment(this.authservice.user$.getValue().email,this.commentFG.value.comment);
     this._postDataService
       .addComment(this._post, comment)
       .subscribe( x => 

@@ -6,15 +6,7 @@
     </mat-card-title>
     <mat-card-subtitle>
       {{post.description}} <br>
-      added on {{post.dateAdded | date: 'd MMMM y' }}
+      added on {{post.dateAdded | date: longdate }}
     </mat-card-subtitle>
   </mat-card-header> 
-  <!--
-  <mat-card-content>
-    <h3 mat-subheader>Comments</h3>
-      <div *ngFor="let comment of post.comments">
-        <app-comment [comment]="comment"></app-comment>
-      </div>
-  </mat-card-content>
-  --> 
 </mat-card>
