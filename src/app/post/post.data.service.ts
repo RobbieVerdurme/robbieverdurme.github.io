@@ -2,7 +2,6 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable, Subject, of } from "rxjs";
 import { map, catchError, delay } from "rxjs/operators";
-import { environment } from "src/environments/environment";
 import { Post } from "./post.model";
 import { Comment } from './comment.model';
 
