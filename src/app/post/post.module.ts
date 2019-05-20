@@ -15,7 +15,7 @@ import { PostResolver } from './post-resolver';
 import { AddPostComponent } from './add-post/add-post.component';
 import { AddCommentComponent } from './add-comment/add-comment.component';
 import { AuthGuard } from '../user/auth.guard';
-import { Role } from '../user/Role';
+import { Role } from '../user/role';
 
 const routes = [
   { path: 'list', component: PostListComponent},
