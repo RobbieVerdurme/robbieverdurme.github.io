@@ -42,7 +42,7 @@ export class AuthenticationService {
   //methods
   login(username:string, email: string, password: string): Observable<boolean> {
     return this.http
-      .post(`${environment.apiUrl}/account`,{email, username, password },{ responseType: 'text' })
+      .post(`https://projectwebivbackend20190519035639.azurewebsites.net/api/account`,{email, username, password },{ responseType: 'text' })
       .pipe(
         map((token: any) => {
           if (token) {
@@ -66,7 +66,7 @@ export class AuthenticationService {
   }
 
   register(username: string,firstname: string,lastname: string,email: string,password: string): Observable<boolean> {
-    return this.http.post(`${environment.apiUrl}/account/register`,
+    return this.http.post(`https://projectwebivbackend20190519035639.azurewebsites.net/api/account/register`,
       {
           username,
           firstname,
@@ -91,7 +91,7 @@ export class AuthenticationService {
   }
 
   checkUserNameAvailability = (email: string): Observable<boolean> => {
-    return this.http.get<boolean>(`${environment.apiUrl}/account/checkusername`,{params: { email }});
+    return this.http.get<boolean>(`https://projectwebivbackend20190519035639.azurewebsites.net/api/account/checkusername`,{params: { email }});
   };
 
   //get
@@ -110,7 +110,7 @@ export class AuthenticationService {
   }
 
   getCustomer$(customer : Customer): Observable<Customer>{
-    return this.http.get(`${environment.apiUrl}/account/${customer.email}`)
+    return this.http.get(`https://projectwebivbackend20190519035639.azurewebsites.net/api/account/${customer.email}`)
     .pipe(
       map((p: any): Customer => Customer.fromJSON(p))
     );
