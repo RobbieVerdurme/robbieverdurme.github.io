@@ -18,6 +18,10 @@ export class Post {
     this._comments.push(comment);
   }
 
+  deleteComment(comment){
+    this._comments.splice(this._comments.indexOf(comment), 1);
+    }
+
   //tojson
   toJSON(): any {
     return {

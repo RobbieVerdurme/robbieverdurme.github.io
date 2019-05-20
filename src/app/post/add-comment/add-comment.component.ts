@@ -34,11 +34,12 @@ private _post: Post;
 
   onSubmit(){
     const comment = new Comment(this.authservice.user$.getValue(),this.commentFG.value.comment);
-    this._post.addComent(comment);
-    this.commentFG.reset();
     this._postDataService
       .addComment(this._post, comment)
-      .subscribe();
+      .subscribe( x => 
+        this._post.addComent(Comment.fromJSON(x))
+      );
+    this.commentFG.reset();
   }
 
   getErrorMessage(errors: any){

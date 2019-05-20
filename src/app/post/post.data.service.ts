@@ -29,8 +29,8 @@ export class PostDataService {
     return this.http.delete(`https://projectwebivbackend20190519035639.azurewebsites.net/api/Posts/${post.id}`, post.toJSON());
   }
 
-  deleteComment(postid : number, comment : Comment){
-    return this.http.delete(`https://projectwebivbackend20190519035639.azurewebsites.net/api/Posts/${postid}/comment`, comment.toJSON());
+  deleteComment(post : Post, comment: Comment){
+    return this.http.delete(`https://projectwebivbackend20190519035639.azurewebsites.net/api/Posts/${post.id}/${comment.id}`, comment.toJSON());
   }
 
   //getters

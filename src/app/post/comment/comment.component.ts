@@ -18,7 +18,6 @@ export class CommentComponent implements OnInit {
     private route: ActivatedRoute,
     private authService : AuthenticationService,
     private postDataService : PostDataService,
-    private router: Router
   ) {}
 
   ngOnInit() {
@@ -30,6 +29,9 @@ export class CommentComponent implements OnInit {
   }
 
   deleteComment(){
-    this.postDataService.deleteComment(this.post.id, this.comment).subscribe();
+    this.post.deleteComment(this.comment);
+    this.postDataService
+    .deleteComment(this.post, this.comment)
+    .subscribe();
   }
 }

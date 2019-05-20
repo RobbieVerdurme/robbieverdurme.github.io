@@ -1,6 +1,6 @@
 export class Comment {
     //var 
-    private id: number;
+    private _id: number;
 
     //constructor
     constructor(
@@ -12,21 +12,24 @@ export class Comment {
     //fromjson
     static fromJSON(json: any): Comment {
         const ing = new Comment(json.name, json.text, json.created);
-        ing.id = json.id;
+        ing._id = json.id;
         return ing;
     }
 
     //tojson
     toJSON(): any {
         return { 
-            id: this.id,
-            name: this.name,
-            Text: this.comment,
-            created: this.dateAdded
+            id: this._id,
+            text: this._comment,
+            name: this._name,
+            created: this._dateAdded
          };
     }
 
     //getter
+    get id(){
+        return this._id;
+    }
     get name() {
         return this._name;
     }
