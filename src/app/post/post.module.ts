@@ -4,9 +4,6 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 
-//lazyloading img?
-import { DeferLoadModule } from '@trademe/ng-defer-load';
-
 //Component
 import { PostComponent } from './post/post.component';
 import { CommentComponent } from './comment/comment.component';
@@ -43,7 +40,6 @@ const routes = [
   ],
   imports: [
     CommonModule,
-    DeferLoadModule,
     MaterialModule,
     HttpClientModule,
     ReactiveFormsModule,
