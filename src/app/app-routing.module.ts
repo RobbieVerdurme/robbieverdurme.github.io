@@ -9,12 +9,9 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 //Lazy loading
 import { SelectivePreloadStrategy } from './selective-preloading-strategy';
 
-//Authentication
-import { AuthGuard } from './user/auth.guard';
-
 
 const appRoutes:Routes = [
-  { path: 'post', loadChildren: './post/post.module#PostModule'},//, data: {preload: true}},
+  { path: 'post', loadChildren: './post/post.module#PostModule', data: {preload: true}},
   { path: '', redirectTo: 'post/list', pathMatch: 'full'},
   { path: '**', component: PageNotFoundComponent}
 ];
@@ -23,7 +20,7 @@ const appRoutes:Routes = [
   declarations: [],
   imports: [
     CommonModule,
-    RouterModule.forRoot(appRoutes)//, {preloadingStrategy: SelectivePreloadStrategy})
+    RouterModule.forRoot(appRoutes, {preloadingStrategy: SelectivePreloadStrategy})
   ],
   exports: [
     RouterModule
