@@ -55,7 +55,10 @@ export class PostDataService {
 
   //setter
   addNewPost(p: Post) {
-    return this.http.post(`https://projectwebivbackend20190519035639.azurewebsites.net/api/Posts/`, p.toJSON());
+    return this.http.post(`https://projectwebivbackend20190519035639.azurewebsites.net/api/Posts/`, p.toJSON(),{
+      reportProgress: true,
+      observe: 'events'
+  });
   }
 
 }

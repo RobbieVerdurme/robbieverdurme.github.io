@@ -5,6 +5,7 @@ import { Post } from '../post.model';
 import { Router } from '@angular/router';
 import { fromEvent, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { HttpEventType } from '@angular/common/http';
 
 @Component({
   selector: 'app-add-post',
@@ -14,7 +15,9 @@ import { map } from 'rxjs/operators';
 export class AddPostComponent implements OnInit {
 //var
 public post: FormGroup;
-imgSrc: Blob = null;
+private imgSrc: Blob = null;
+private loading: boolean = false;
+public loadingValue:number = 0;
 
 //constructor
   constructor(
@@ -34,7 +37,7 @@ imgSrc: Blob = null;
   
   readFile(file: File | Blob): Observable<any> {
     const reader = new FileReader();
-    let loadend = fromEvent(reader, 'loadend').pipe(
+    const loadend = fromEvent(reader, 'loadend').pipe(
       map((read: any) => {
         return read.target.result;
       })
@@ -44,17 +47,28 @@ imgSrc: Blob = null;
   }
 
   onFileChange(event){
-    this.readFile(<File>event.target.files[0]).subscribe(res => {
+    this.readFile(event.target.files[0] as File).subscribe(res => {
       this.imgSrc = res;
-      this.post.get('img').setValue(res);
+      this.post.get('img').setValue(this.imgSrc);
     });
   }
 
-  onSubmit(){
+  onSubmit() {
+    this.loading = true;
+    const post = new Post(this.post.value.img, this.post.value.title, this.post.value.description);
+    this.post.reset();
+    this.imgSrc = null;
     this._postDataService
-      .addNewPost(new Post(this.post.value.img, this.post.value.title, this.post.value.description))
-      .subscribe();
-    this.router.navigate(['/post/list']);
+      .addNewPost(post)
+      .subscribe(events =>{
+        if(events.type == HttpEventType.UploadProgress){
+          this.loadingValue = events.loaded / events.total * 100
+          if( this.loadingValue == 100){
+            this.loading = false;
+            this.router.navigate(['/post/list'])
+          }
+        }
+      });
   }
 
   getErrorMessage(errors: any){
