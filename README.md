@@ -1,5 +1,7 @@
-# ProjectWebIV
+## :heavy_exclamation_mark: App no langer supported
+:heavy_exclamation_mark: app no langer working because backend is offline 
 
+# ProjectWebIV
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.1.
 
 ## Development server
